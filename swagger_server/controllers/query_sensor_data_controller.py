@@ -15,7 +15,7 @@ def get_sensor_by_id(deviceId):  # noqa: E501
             df_deviceId = df.loc[df['dev_id'] == deviceId]
             df_resp = df_deviceId[['dev_id','device_name','snr']]
          #   df_resp = df_resp.head(1)
-            data = df_resp.to_json(orient="records")
+            data = df_resp.to_json()
 
             status = 200
             #data = {"Success message": "Device deleted from the csv"}
@@ -32,7 +32,7 @@ def getmaximum(sensor):  # noqa: E501
     try:
         df = pd.read_csv("/tmp/iot.csv")
         df_sensor = df[[sensor,'dev_id','datetime','device_name']].max()
-        data = df_sensor.to_json(orient="records")
+        data = df_sensor.to_json()
         status = 200
     except Exception as e:
             data = {"Error message": str(e)}
