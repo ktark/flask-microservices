@@ -28,26 +28,26 @@ def get_sensor_by_id(deviceId):  # noqa: E501
     return json.loads(data),status
 
 def getmaximum(sensor):  # noqa: E501
-    """Find maximum sensor data  by ID
 
-    Returns a list of sensor data # noqa: E501
-
-    :param sensor: Device id to search in the data
-    :type sensor: str
-
-    :rtype: Device
-    """
-    return 'do some magic!'
+    try:
+        df = pd.read_csv("/tmp/iot.csv")
+        df_sensor = df[[sensor,'dev_id','datetime','device_name']].max()
+        data = df_sensor.to_json(orient="records")
+        status = 200
+    except Exception as e:
+            data = {"Error message": str(e)}
+            status = 400
+    return json.loads(data),status
 
 
 def getminimum(sensor):  # noqa: E501
-    """Find minimum sensor data  by ID
 
-    Returns a list of sensor data # noqa: E501
-
-    :param sensor: Device id to search in the data
-    :type sensor: str
-
-    :rtype: Device
-    """
-    return 'do some magic!'
+    try:
+        df = pd.read_csv("/tmp/iot.csv")
+        df_sensor = df[[sensor,'dev_id','datetime','device_name']].min()
+        data = df_sensor.to_json(orient="records")
+        status = 200
+    except Exception as e:
+            data = {"Error message": str(e)}
+            status = 400
+    return json.loads(data),status
